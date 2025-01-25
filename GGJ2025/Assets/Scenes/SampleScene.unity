@@ -246,7 +246,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_Sprite: {fileID: -4139048734219611424, guid: be0f565819537244dac25988ac1387a4, type: 3}
   m_Color: {r: 0.90188676, g: 0.90188676, b: 0.90188676, a: 1}
   m_FlipX: 0
@@ -267,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 223701546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.26, z: 0}
+  m_LocalPosition: {x: 0, y: -2.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -394,7 +394,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 19
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.83396226, g: 0.77226645, b: 0.57747954, a: 1}
   m_FlipX: 0
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 0
+  m_ShadowsEnabled: 1
   m_ShadowIntensity: 0.745
   m_ShadowSoftness: 0
   m_ShadowSoftnessFalloffIntensity: 0.47
@@ -724,7 +724,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.1185, y: 17.3652, z: 0}
-  m_LocalScale: {x: 18.280794, y: 50.5336, z: 1}
+  m_LocalScale: {x: 25, y: 50.5336, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -900,6 +900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1833783958}
+  - component: {fileID: 1833783959}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -922,6 +923,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1833783959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833783956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9ab0698ad8985499eeadc5141bf81f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Audio:
+  - name: Jumpscare
+    clip: {fileID: 8300000, guid: be3749ac339f1d740b0a38f51fd21c9b, type: 3}
+    audioMixer: {fileID: 6262068670064596034, guid: 43c69022fbf875f4ba5339cd1c6e0c66, type: 2}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &1883009792
 GameObject:
   m_ObjectHideFlags: 0
