@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-
+using PrimeTween;
 public class PlayerControl : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,7 +48,7 @@ public class PlayerControl : MonoBehaviour
             floatSpeed = 1;
         }
 
-        
+
 
     }
     // Update is called once per frame
@@ -97,7 +97,14 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            if (life > 1)
+            {
+                //Camera shake
+                Tween.ShakeCamera(cam.gameObject.GetComponent<Camera>(), 10f);
+            }
+
             life--;
+
             if (life == 1)
             {
                 light2D.intensity = 4;
