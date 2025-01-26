@@ -113,8 +113,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (life > 1)
             {
-                //Camera shake
-                Tween.ShakeCamera(cam.gameObject.GetComponent<Camera>(), 10f);
+                
             }
 
            

@@ -6,14 +6,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public PlayerControl PlayerControl;
-    private AudioManager AudioManager;
     public Image jumpscare;
     public Camera cam;
     private RectTransform rect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        AudioManager = GetComponent<AudioManager>();
         rect = jumpscare.GetComponent<RectTransform>();
         jumpscare.enabled = false;
         
