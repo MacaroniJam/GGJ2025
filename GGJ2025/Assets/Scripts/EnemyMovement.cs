@@ -7,18 +7,17 @@ public class EnemyMovement : MonoBehaviour
     public float rotationSpeed;    // Speed of rotation (degrees per second)
     public float rotationDuration; // How long the enemy rotates to face the player (in seconds)
 
-    private bool canRotate = true;      // Flag to allow rotation
+    private bool canRotate = false;      // Flag to allow rotation
     private float rotationTimer = 0f;   // Timer to track rotation duration
     private bool attack = false;
     public float chargeSpeed = 5f;
-    private Animator anim;
- 
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //anim = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -61,52 +60,38 @@ public class EnemyMovement : MonoBehaviour
     void RotateToPlayer()
     {
         // Calculate the direction to the player
-        Vector2 direction;
-        if (player.position.y > transform.position.y)
-        {
-            direction = (player.position - transform.position).normalized;
-        }
-        else
-        {
-            direction = (transform.position - player.position).normalized;
-        }
+        Vector2 direction = player.position - transform.position;
 
-        // Get the target angle in degrees
-        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Normalize the current angle to the range [-180, 180]
+        // Get the current angle
         float currentAngle = NormalizeAngle(transform.eulerAngles.z);
 
-        // Wrap the target angle to [-180, 180] for shortest path
-        targetAngle = NormalizeAngle(targetAngle);
+        // Calculate the target angle based on the direction
+        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Determine the shortest rotation direction
-        float angleDifference = targetAngle - currentAngle;
-
-        // Wrap the angle difference to [-180, 180]
-        angleDifference = Mathf.Repeat(angleDifference + 180f, 360f) - 180f;
-
-        // Check the enemy's current facing direction (based on X scale)
-        bool isFacingRight = transform.localScale.x > 0;
-
-        // Prioritize turning in the direction the enemy is already facing
-        if ((isFacingRight && angleDifference > 0) || (!isFacingRight && angleDifference < 0))
+        // If the enemy is facing left (scale.x < 0), flip the target angle
+        if (transform.localScale.x < 0)
         {
-            angleDifference = (angleDifference > 0) ? angleDifference - 360f : angleDifference + 360f;
+            // Flip the angle by 180 degrees
+            targetAngle += 180f;
+            targetAngle = NormalizeAngle(targetAngle);
         }
 
-        // Determine the rotation step (rotate toward the shortest direction)
+        // Calculate the angle difference
+        float angleDifference = targetAngle - currentAngle;
+
+        // Ensure we rotate the correct direction (clockwise or counter-clockwise)
         float rotationStep = Mathf.Sign(angleDifference) * rotationSpeed * Time.deltaTime;
 
-        // Ensure we don't overshoot the target angle
+        // Prevent overshooting the target angle
         if (Mathf.Abs(rotationStep) > Mathf.Abs(angleDifference))
         {
-            rotationStep = angleDifference; // Snap directly to the target angle
+            rotationStep = angleDifference;
         }
 
         // Apply the rotation
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle + rotationStep));
+        transform.rotation = Quaternion.Euler(0, 0, currentAngle + rotationStep);
     }
+
 
 
     // Normalize an angle to the range [0, 360]
@@ -129,12 +114,13 @@ public class EnemyMovement : MonoBehaviour
     }
 
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             canRotate = true;
         }
+
     }
+
 }

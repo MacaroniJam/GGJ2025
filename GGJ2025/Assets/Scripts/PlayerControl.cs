@@ -22,6 +22,12 @@ public class PlayerControl : MonoBehaviour
 
     public Transform circle;
 
+    // New variables for life cooldown
+    private bool canLoseLife = true; // Flag to control if life can be lost
+    public float lifeCooldownTime = 3f; // Time in seconds before the player can lose life again
+    private float lifeCooldownTimer = 0f; // Timer to track the cooldown period
+
+
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
@@ -48,7 +54,15 @@ public class PlayerControl : MonoBehaviour
             floatSpeed = 1;
         }
 
+        if (!canLoseLife)
+        {
+            lifeCooldownTimer -= Time.deltaTime;
 
+            if (lifeCooldownTimer <= 0f)
+            {
+                canLoseLife = true; // Allow life loss again after cooldown
+            }
+        }
 
     }
     // Update is called once per frame
@@ -95,7 +109,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && collision is BoxCollider2D)
         {
             if (life > 1)
             {
@@ -103,12 +117,20 @@ public class PlayerControl : MonoBehaviour
                 Tween.ShakeCamera(cam.gameObject.GetComponent<Camera>(), 10f);
             }
 
-            life--;
+           
 
-            if (life == 1)
+            if (canLoseLife == true)
             {
-                light2D.intensity = 4;
-                light2D.falloffIntensity = 0.8f;
+                life--;
+                canLoseLife = false;
+                lifeCooldownTimer = lifeCooldownTime; // Reset the cooldown timer
+
+                if (life == 1) 
+                {
+                    light2D.intensity = 4;
+                    light2D.falloffIntensity = 0.8f;
+                }
+                
             }
         }
 
