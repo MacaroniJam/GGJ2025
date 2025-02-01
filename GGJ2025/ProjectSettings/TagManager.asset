@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Current
   - Enemy
+  - Image
+  - Audio
+  - ScoreTrigger
   layers:
   - Default
   - TransparentFX

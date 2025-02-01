@@ -4,24 +4,26 @@ using UnityEngine;
 public class RandomSpawner : MonoBehaviour
 {
 
-    public GameObject[] SpritesToSpawn;
+    [SerializeField] private GameObject rock1;
 
-    [SerializeField] private float SpawnIntervals;
+    [SerializeField] private float spawn_rate;
+    [SerializeField] private float timer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        InvokeRepeating("SpawnRandom",0f,SpawnIntervals);
+     void Start() {
+
+        Instantiate(rock1, transform.position, transform.rotation);
     }
 
-    // Update is called once per frame
-    void SpawnRandom() {
+     void Update() {
 
-        // Pick a random index from the array
-        int randIndex = UnityEngine.Random.Range(0, SpritesToSpawn.Length);
+        if (timer < spawn_rate) {
 
-        // Instantiate the random sprite at the spawner's position
-        Instantiate(SpritesToSpawn[randIndex], transform.position, Quaternion.identity);
+            timer = timer + Time.deltaTime;
+        } else {
+
+            Instantiate(rock1, transform.position, transform.rotation);
+            timer = 0;
+        }
     }
 
 
