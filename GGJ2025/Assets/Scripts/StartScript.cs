@@ -3,12 +3,25 @@ using UnityEngine.SceneManagement;
 
 public class StartScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] AudioSource sfx;
+
+    public AudioClip sfxClip;
+   
     public void OnStartClick()
     {
+        sfx.clip = sfxClip;
+        sfx.Play();
+        StartCoroutine(LoadSceneAfterSound());
+
+    }
+
+    private System.Collections.IEnumerator LoadSceneAfterSound()
+    {
+        yield return new WaitForSeconds(sfxClip.length); // Wait for the sound to finish
         SceneManager.LoadScene("Game");
     }
-    // Update is called once per frame
+
+  
     public void OnExitClick()
     {
 #if UNITY_EDITOR
